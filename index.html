@@ -16,40 +16,83 @@
 <meta name="twitter:title" content="Verliks | Premium Brazilian Cleaning Services">
 <meta name="twitter:description" content="Trusted, background-checked Brazilian cleaners. Fast matching, verified pros, transparent pricing. Book in minutes.">
 <meta name="twitter:image" content="https://lh3.googleusercontent.com/aida-public/AB6AXuBUOEyI9rCjm90Ya5irE-E3Hzmz6Ih-Bu8mqf3s8P6zz23k90ejDFLz9vcE0HOgpUB9Z5gVvVBye59mZilyMW6ZPDRsyVOmDF5It85WMElTvReSrs7B8VQfTF3ClviFNwQTtwnAdnAhu_gA3hUUv9WrGr3-fNFfvDl6P8AW4DI54EpDzX6BDZhXZCJBIo7xpV7464suva6FzLhE7SuvvMW_LB1KfREAV3CW_COk8LCKEBMuj2spJqskoShmbs4bwLeLMozGXbKqfM8">
-<link href="styles.css?v=3" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="styles.css?v=4" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
 <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #FFFFFF;
-            color: #111111;
+            background-color: #F7F8FA;
+            color: #1E3A5F;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        .fade-in {
-            animation: fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
+        /* Editorial headline rendering: tight tracking needs optical alignment */
+        h1, h2, h3 { font-family: 'Hanken Grotesk', 'Inter', sans-serif; }
 
         .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
-            font-size: 24px;
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            line-height: 1;
         }
+
+        /* --- Reveal on scroll -------------------------------------------------
+           Only applied when JS is on, so no-JS visitors never get a blank page. */
+        .js [data-reveal] {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity .7s cubic-bezier(.25,.46,.45,.94), transform .7s cubic-bezier(.25,.46,.45,.94);
+            transition-delay: var(--reveal-delay, 0ms);
+            will-change: opacity, transform;
+        }
+        .js [data-reveal].is-visible { opacity: 1; transform: none; }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .js [data-reveal] { opacity: 1; transform: none; transition: none; }
+            *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+        }
+
+        /* Keyboard focus: 1px emerald-equivalent (brand navy) ring, no heavy glow */
+        :focus-visible { outline: 2px solid #1E3A5F; outline-offset: 3px; border-radius: 2px; }
+        :focus:not(:focus-visible) { outline: none; }
+
+        /* Skip link */
+        .skip-link {
+            position: absolute; left: 20px; top: -100px; z-index: 100;
+            background: #1E3A5F; color: #fff; padding: 12px 20px; border-radius: 4px;
+            font-size: 14px; font-weight: 600; transition: top .2s ease;
+        }
+        .skip-link:focus { top: 20px; }
+
+        /* Sticky nav gains a hairline only once the page has moved */
+        .site-nav { transition: border-color .3s ease, background-color .3s ease; border-bottom: 1px solid transparent; }
+        .site-nav.is-scrolled { border-bottom-color: #A7C9C7; }
+
+        /* Nav link: understated underline that grows from the left */
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content: ''; position: absolute; left: 0; bottom: -6px; height: 1px; width: 100%;
+            background: currentColor; transform: scaleX(0); transform-origin: left;
+            transition: transform .3s cubic-bezier(.25,.46,.45,.94);
+        }
+        .nav-link:hover::after, .nav-link[aria-current="page"]::after { transform: scaleX(1); }
+
+        /* Mobile menu panel */
+        .nav-panel { display: none; }
+        .nav-panel[data-open="true"] { display: block; }
 
         /* Apple-style thin scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: #d1d1d6; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #8e8e93; }
+
+        .text-balance { text-wrap: balance; }
+        .text-pretty { text-wrap: pretty; }
     </style>
 <script type="application/ld+json">
 {
@@ -95,181 +138,317 @@
 }
 </script>
 </head>
-<body class="bg-surface-background text-interactive-black selection:bg-primary selection:text-white">
-<!-- TopNavBar Component -->
-<nav class="fixed top-0 left-0 right-0 w-full z-50 bg-surface-background/80 backdrop-blur-md border-b border-border-subtle">
-<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
-<div class="flex items-center gap-8">
-<a class="flex items-center gap-2 font-headline-md text-headline-md font-semibold text-primary tracking-tight" href="https://verliks.com"><img class="h-9 w-auto object-contain flex-shrink-0" src="vlogo-cropped.png" alt="" aria-hidden="true"><span>Verliks</span></a>
-<div class="hidden md:flex items-center gap-6">
-<a class="font-body-md text-body-md text-secondary hover:text-primary transition-colors duration-300 ease-out" href="https://verliks.com/#how-it-works">How it works</a>
-<a class="font-body-md text-body-md text-secondary hover:text-primary transition-colors duration-300 ease-out" href="https://verliks.com/request">Pricing</a>
-<a class="font-body-md text-body-md text-secondary hover:text-primary transition-colors duration-300 ease-out" href="https://verliks.com/landing#about">About</a>
-<a class="font-body-md text-body-md text-secondary hover:text-primary transition-colors duration-300 ease-out" href="mailto:support@verliks.com">Contact</a>
-<a class="font-body-md text-body-md text-secondary hover:text-primary transition-colors duration-300 ease-out" href="https://verliks.com/auth/register?role=cleaner">Become a Cleaner</a></div>
+<body class="bg-surface-background text-interactive-black selection:bg-primary selection:text-white overflow-x-hidden">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============================ TopNavBar ============================ -->
+<nav class="site-nav fixed top-0 left-0 right-0 w-full z-50 bg-surface-background/90 backdrop-blur-md" aria-label="Primary">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative h-16 md:h-20 flex items-center justify-between gap-6">
+
+<a class="flex items-center gap-2 font-headline-md text-headline-md text-primary shrink-0" href="https://verliks.com">
+<img class="h-8 w-auto object-contain shrink-0" src="vlogo-cropped.png" alt="" aria-hidden="true" width="694" height="803">
+<span>Verliks</span>
+</a>
+
+<div class="hidden lg:flex items-center gap-6 xl:gap-8 absolute left-1/2 -translate-x-1/2 w-max whitespace-nowrap">
+<a class="nav-link font-label-md text-label-md text-secondary-text hover:text-primary transition-colors duration-300 ease-editorial" href="https://verliks.com/#how-it-works">How it works</a>
+<a class="nav-link font-label-md text-label-md text-secondary-text hover:text-primary transition-colors duration-300 ease-editorial" href="https://verliks.com/request">Pricing</a>
+<a class="nav-link font-label-md text-label-md text-secondary-text hover:text-primary transition-colors duration-300 ease-editorial" href="https://verliks.com/landing#about">About</a>
+<a class="nav-link font-label-md text-label-md text-secondary-text hover:text-primary transition-colors duration-300 ease-editorial" href="mailto:support@verliks.com">Contact</a>
+<a class="nav-link font-label-md text-label-md text-secondary-text hover:text-primary transition-colors duration-300 ease-editorial" href="https://verliks.com/auth/register?role=cleaner">Become a Cleaner</a>
 </div>
-<div class="flex items-center">
-<button onclick="window.location.href='https://verliks.com/request'" class="bg-primary text-on-primary px-6 py-2.5 rounded-[4px] font-label-md text-label-md hover:opacity-90 transition-all duration-300 ease-out">Book a Cleaner</button>
+
+<div class="flex items-center gap-2">
+<a class="hidden sm:inline-flex items-center justify-center bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded-[4px] hover:bg-primary/90 transition-colors duration-300 ease-editorial" href="https://verliks.com/request">Book a Cleaner</a>
+<button type="button" id="nav-toggle" class="lg:hidden inline-flex items-center justify-center h-11 w-11 -mr-2 rounded-[4px] text-primary hover:bg-surface-subtle transition-colors" aria-expanded="false" aria-controls="nav-panel" aria-label="Open menu">
+<span class="material-symbols-outlined text-2xl" aria-hidden="true">menu</span>
+</button>
+</div>
+
+</div>
+
+<!-- Mobile / tablet menu -->
+<div class="nav-panel lg:hidden border-t border-border-subtle bg-surface-container-lowest" id="nav-panel" data-open="false">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-6 flex flex-col gap-5">
+<a class="font-body-md text-body-md text-secondary-text hover:text-primary transition-colors" href="https://verliks.com/#how-it-works">How it works</a>
+<a class="font-body-md text-body-md text-secondary-text hover:text-primary transition-colors" href="https://verliks.com/request">Pricing</a>
+<a class="font-body-md text-body-md text-secondary-text hover:text-primary transition-colors" href="https://verliks.com/landing#about">About</a>
+<a class="font-body-md text-body-md text-secondary-text hover:text-primary transition-colors" href="mailto:support@verliks.com">Contact</a>
+<a class="font-body-md text-body-md text-secondary-text hover:text-primary transition-colors" href="https://verliks.com/auth/register?role=cleaner">Become a Cleaner</a>
+<a class="sm:hidden inline-flex items-center justify-center bg-primary text-on-primary font-label-md text-label-md px-6 py-4 rounded-[4px] mt-1" href="https://verliks.com/request">Book a Cleaner</a>
 </div>
 </div>
 </nav>
-<!-- Hero Section -->
-<header class="relative pt-32 pb-section-padding px-margin-mobile md:px-margin-desktop min-h-[870px] flex flex-col items-center justify-center text-center">
-<div class="max-w-4xl mx-auto fade-in">
-<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-display-lg md:text-display-lg text-interactive-black mb-6 tracking-tight">
+
+<main id="main" class="pt-16 md:pt-20">
+
+<!-- ============================== Hero =============================== -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 md:py-section-padding grid md:grid-cols-2 gap-12 lg:gap-gutter items-center">
+<div class="flex flex-col items-start gap-6" data-reveal>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-xl md:text-headline-xl text-interactive-black text-balance">
             The easiest way to find trusted Brazilian cleaners.
         </h1>
-<p class="font-body-lg text-body-lg text-secondary-text mb-12 max-w-2xl mx-auto">Professional, background-checked cleaning experts near you — trusted by 2,400+ homeowners with a 4.9★ average rating. Simple booking, exceptional care.</p>
-<div class="flex flex-col md:flex-row items-center justify-center gap-4 mb-20">
-<button onclick="window.location.href='https://verliks.com/request'" class="w-full md:w-auto bg-primary text-on-primary px-10 py-4 rounded-[4px] font-body-md text-body-md font-medium hover:opacity-90 transition-all duration-300 ease-out">
-                Book a Cleaner
-            </button>
+<p class="font-body-lg text-body-lg text-secondary-text max-w-lg text-pretty">Professional, background-checked cleaning experts near you — trusted by 2,400+ homeowners with a 4.9★ average rating. Simple booking, exceptional care.</p>
+<div class="flex flex-col sm:flex-row gap-4 mt-4 w-full sm:w-auto">
+<a class="inline-flex items-center justify-center bg-primary text-on-primary font-label-md text-label-md px-8 py-4 rounded-[4px] hover:bg-primary/90 transition-colors duration-300 ease-editorial w-full sm:w-auto" href="https://verliks.com/request">Book a Cleaner</a>
+<a class="inline-flex items-center justify-center border border-border-subtle text-interactive-black font-label-md text-label-md px-8 py-4 rounded-[4px] hover:bg-surface-subtle transition-colors duration-300 ease-editorial w-full sm:w-auto" href="https://verliks.com/auth/register?role=cleaner">Become a Cleaner</a>
+</div>
+</div>
+
+<!-- Elevated surface: pure white frame, hairline outline, one diffused shadow -->
+<div class="relative w-full aspect-[4/3] rounded-xl border border-border-subtle bg-surface-container-lowest shadow-soft p-2 sm:p-3" data-reveal style="--reveal-delay:120ms">
+<div class="h-full w-full overflow-hidden rounded-lg bg-surface-subtle">
+<img class="w-full h-full object-cover object-center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUOEyI9rCjm90Ya5irE-E3Hzmz6Ih-Bu8mqf3s8P6zz23k90ejDFLz9vcE0HOgpUB9Z5gVvVBye59mZilyMW6ZPDRsyVOmDF5It85WMElTvReSrs7B8VQfTF3ClviFNwQTtwnAdnAhu_gA3hUUv9WrGr3-fNFfvDl6P8AW4DI54EpDzX6BDZhXZCJBIo7xpV7464suva6FzLhE7SuvvMW_LB1KfREAV3CW_COk8LCKEBMuj2spJqskoShmbs4bwLeLMozGXbKqfM8" alt="Professional Verliks cleaner tidying a sun-lit, minimalist luxury apartment interior" loading="eager" fetchpriority="high" width="800" height="600">
+</div>
+</div>
+</section>
+
+<!-- ============================ Trust bar ============================ -->
+<section class="border-y border-border-subtle bg-surface-container-lowest" aria-label="Why homeowners trust Verliks">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8">
+<ul class="flex flex-col md:flex-row justify-center md:justify-around items-center gap-6">
+<li class="flex items-center gap-2 font-label-md text-label-md text-secondary-text">
+<span class="material-symbols-outlined text-primary text-xl" aria-hidden="true">check</span>
+                500+ Background-Checked Pros
+            </li>
+<li class="flex items-center gap-2 font-label-md text-label-md text-secondary-text">
+<span class="material-symbols-outlined text-primary text-xl" aria-hidden="true">check</span>
+                2,400+ Homeowners Served
+            </li>
+<li class="flex items-center gap-2 font-label-md text-label-md text-secondary-text">
+<span class="material-symbols-outlined text-primary text-xl" aria-hidden="true">check</span>
+                4.9★ Average Rating
+            </li>
+</ul>
+</div>
+</section>
+
+<!-- ========================== How it works =========================== -->
+<section id="how-it-works" class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 md:py-section-padding">
+<div class="mb-12 md:mb-16 text-center md:text-left" data-reveal>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-interactive-black text-balance">Simplicity by Design</h2>
+</div>
+<div class="relative">
+<!-- Connective line: one hairline, drawn behind the cards -->
+<div class="hidden md:block absolute top-12 left-0 w-full h-px bg-border-subtle z-0" aria-hidden="true"></div>
+<ol class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<li class="relative z-10 bg-surface-background p-8 border border-border-subtle rounded-xl flex flex-col items-start hover:shadow-soft transition-shadow duration-300 ease-editorial" data-reveal>
+<span class="font-headline-md text-headline-md text-primary tabular-nums mb-4">01</span>
+<h3 class="font-body-lg text-body-lg font-semibold text-interactive-black mb-2">Request</h3>
+<p class="font-body-md text-body-md text-secondary-text">Tell us your needs.</p>
+</li>
+<li class="relative z-10 bg-surface-background p-8 border border-border-subtle rounded-xl flex flex-col items-start hover:shadow-soft transition-shadow duration-300 ease-editorial md:mt-8" data-reveal style="--reveal-delay:80ms">
+<span class="font-headline-md text-headline-md text-primary tabular-nums mb-4">02</span>
+<h3 class="font-body-lg text-body-lg font-semibold text-interactive-black mb-2">Match</h3>
+<p class="font-body-md text-body-md text-secondary-text">Connect with local pros, usually within the hour.</p>
+</li>
+<li class="relative z-10 bg-surface-background p-8 border border-border-subtle rounded-xl flex flex-col items-start hover:shadow-soft transition-shadow duration-300 ease-editorial" data-reveal style="--reveal-delay:160ms">
+<span class="font-headline-md text-headline-md text-primary tabular-nums mb-4">03</span>
+<h3 class="font-body-lg text-body-lg font-semibold text-interactive-black mb-2">Choose</h3>
+<p class="font-body-md text-body-md text-secondary-text">Review profiles and chat.</p>
+</li>
+<li class="relative z-10 bg-surface-background p-8 border border-border-subtle rounded-xl flex flex-col items-start hover:shadow-soft transition-shadow duration-300 ease-editorial md:mt-8" data-reveal style="--reveal-delay:240ms">
+<span class="font-headline-md text-headline-md text-primary tabular-nums mb-4">04</span>
+<h3 class="font-body-lg text-body-lg font-semibold text-interactive-black mb-2">Book</h3>
+<p class="font-body-md text-body-md text-secondary-text">Pay securely and relax.</p>
+</li>
+</ol>
+</div>
+</section>
+
+<!-- =========================== Why Verliks =========================== -->
+<section id="why-verliks" class="bg-surface-container-lowest border-y border-border-subtle py-16 md:py-section-padding">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="mb-12 md:mb-16 text-center" data-reveal>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-interactive-black text-balance">Built for Trust, Not Chaos</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="p-8 border border-border-subtle rounded-xl bg-surface-background hover:shadow-soft transition-shadow duration-300 ease-editorial" data-reveal>
+<div class="w-10 h-10 rounded-full bg-surface-subtle flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="bolt" aria-hidden="true">bolt</span>
+</div>
+<h3 class="font-body-lg text-body-lg font-semibold text-interactive-black mb-3">Fast matching</h3>
+<p class="font-body-md text-body-md text-secondary-text text-pretty">Get matched with a vetted cleaner near you, usually within the hour.</p>
+</div>
+<div class="p-8 border border-border-subtle rounded-xl bg-surface-background hover:shadow-soft transition-shadow duration-300 ease-editorial" data-reveal style="--reveal-delay:80ms">
+<div class="w-10 h-10 rounded-full bg-surface-subtle flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="verified_user" aria-hidden="true">verified_user</span>
+</div>
+<h3 class="font-body-lg text-body-lg font-semibold text-interactive-black mb-3">Verified cleaners</h3>
+<p class="font-body-md text-body-md text-secondary-text text-pretty">500+ background-checked professionals, trained and equipped with quality products.</p>
+</div>
+<div class="p-8 border border-border-subtle rounded-xl bg-surface-background hover:shadow-soft transition-shadow duration-300 ease-editorial" data-reveal style="--reveal-delay:160ms">
+<div class="w-10 h-10 rounded-full bg-surface-subtle flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="payments" aria-hidden="true">payments</span>
+</div>
+<h3 class="font-body-lg text-body-lg font-semibold text-interactive-black mb-3">Transparent pricing</h3>
+<p class="font-body-md text-body-md text-secondary-text text-pretty">Clear, upfront estimates with no hidden fees or surprise upcharges. Ever.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- =========================== Testimonials ========================== -->
+<section id="reviews" class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 md:py-section-padding">
+<div class="mb-12 md:mb-16 text-center" data-reveal>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-interactive-black mb-4 text-balance">Loved by homeowners</h2>
+<p class="font-body-lg text-body-lg text-secondary-text max-w-xl mx-auto text-pretty">Real reviews from real Verliks customers.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+<figure class="p-8 rounded-xl bg-surface-container-lowest border border-border-subtle hover:shadow-soft transition-shadow duration-300 ease-editorial flex flex-col" data-reveal>
+<div class="flex gap-1 mb-6 text-tertiary-fixed-dim" role="img" aria-label="Rated 5 out of 5">
+<span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
+</div>
+<blockquote class="font-body-md text-body-md text-interactive-black mb-6 flex-1 text-pretty">“I've been using Verliks for 6 months and it's completely changed my routine.”</blockquote>
+<figcaption class="pt-6 border-t border-border-subtle">
+<span class="block font-label-md text-label-md text-interactive-black">Sarah M.</span>
+<span class="block font-label-sm text-label-sm text-secondary-text mt-1.5 uppercase">Miami, FL · Standard Cleaning</span>
+</figcaption>
+</figure>
+
+<figure class="p-8 rounded-xl bg-surface-container-lowest border border-border-subtle hover:shadow-soft transition-shadow duration-300 ease-editorial flex flex-col" data-reveal style="--reveal-delay:80ms">
+<div class="flex gap-1 mb-6 text-tertiary-fixed-dim" role="img" aria-label="Rated 5 out of 5">
+<span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
+</div>
+<blockquote class="font-body-md text-body-md text-interactive-black mb-6 flex-1 text-pretty">“Booked a deep clean before hosting a family gathering. They exceeded every expectation.”</blockquote>
+<figcaption class="pt-6 border-t border-border-subtle">
+<span class="block font-label-md text-label-md text-interactive-black">Michael R.</span>
+<span class="block font-label-sm text-label-sm text-secondary-text mt-1.5 uppercase">Hartford, CT · Deep Cleaning</span>
+</figcaption>
+</figure>
+
+<figure class="p-8 rounded-xl bg-surface-container-lowest border border-border-subtle hover:shadow-soft transition-shadow duration-300 ease-editorial flex flex-col" data-reveal style="--reveal-delay:160ms">
+<div class="flex gap-1 mb-6 text-tertiary-fixed-dim" role="img" aria-label="Rated 5 out of 5">
+<span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
+<span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
+</div>
+<blockquote class="font-body-md text-body-md text-interactive-black mb-6 flex-1 text-pretty">“Used Verliks for a move-out clean. Got my full security deposit back.”</blockquote>
+<figcaption class="pt-6 border-t border-border-subtle">
+<span class="block font-label-md text-label-md text-interactive-black">Jennifer K.</span>
+<span class="block font-label-sm text-label-sm text-secondary-text mt-1.5 uppercase">Boston, MA · Move-Out Cleaning</span>
+</figcaption>
+</figure>
 
 </div>
-<!-- Video Placeholder/Mockup -->
-<div class="relative w-full aspect-video md:aspect-[21/9] bg-surface-subtle rounded-xl overflow-hidden border border-border-subtle shadow-sm fade-in delay-2">
-<div class="absolute inset-0 flex items-center justify-center">
-<div class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30 cursor-pointer hover:scale-105 transition-transform">
-<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
-</div>
-</div>
-<img class="w-full h-full object-cover object-center opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUOEyI9rCjm90Ya5irE-E3Hzmz6Ih-Bu8mqf3s8P6zz23k90ejDFLz9vcE0HOgpUB9Z5gVvVBye59mZilyMW6ZPDRsyVOmDF5It85WMElTvReSrs7B8VQfTF3ClviFNwQTtwnAdnAhu_gA3hUUv9WrGr3-fNFfvDl6P8AW4DI54EpDzX6BDZhXZCJBIo7xpV7464suva6FzLhE7SuvvMW_LB1KfREAV3CW_COk8LCKEBMuj2spJqskoShmbs4bwLeLMozGXbKqfM8" alt="Professional Verliks cleaner tidying a sun-lit, minimalist luxury apartment interior" loading="eager">
-</div>
-</div>
-</header>
-<!-- Trust Section -->
-<section class="py-section-padding px-margin-mobile md:px-margin-desktop bg-surface-background fade-in">
-<div class="max-w-container-max mx-auto border-t border-border-subtle pt-20">
-<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter text-center">
-<div class="p-8 flex flex-col items-center fade-in delay-1">
-<div class="mb-6">
-<span class="material-symbols-outlined text-primary text-4xl" data-icon="bolt">bolt</span>
-</div>
-<h3 class="font-headline-md text-headline-md mb-3 text-interactive-black">Fast matching</h3>
-<p class="font-body-md text-body-md text-secondary-text">Get matched with a vetted cleaner near you, usually within the hour.</p>
-</div>
-<div class="p-8 flex flex-col items-center fade-in delay-2">
-<div class="mb-6">
-<span class="material-symbols-outlined text-primary text-4xl" data-icon="verified_user">verified_user</span>
-</div>
-<h3 class="font-headline-md text-headline-md mb-3 text-interactive-black">Verified cleaners</h3>
-<p class="font-body-md text-body-md text-secondary-text">500+ background-checked professionals, trained and equipped with quality products.</p>
-</div>
-<div class="p-8 flex flex-col items-center fade-in delay-3">
-<div class="mb-6">
-<span class="material-symbols-outlined text-primary text-4xl" data-icon="payments">payments</span>
-</div>
-<h3 class="font-headline-md text-headline-md mb-3 text-interactive-black">Transparent pricing</h3>
-<p class="font-body-md text-body-md text-secondary-text">Clear, upfront estimates with no hidden fees or surprise upcharges. Ever.</p>
-</div>
+</section>
+
+<!-- =============================== CTA =============================== -->
+<section class="bg-surface-container-lowest border-y border-border-subtle py-16 md:py-section-padding">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="max-w-2xl mx-auto text-center" data-reveal>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-interactive-black mb-6 text-balance">Ready to book your cleaner?</h2>
+<p class="font-body-lg text-body-lg text-secondary-text mb-10 text-pretty">Join 2,400+ homeowners across Miami, Connecticut, New York and Massachusetts who trust Verliks for their weekly maintenance and deep cleaning needs.</p>
+<a class="inline-flex items-center justify-center bg-primary text-on-primary font-label-md text-label-md px-10 py-4 rounded-[4px] hover:bg-primary/90 transition-colors duration-300 ease-editorial" href="https://verliks.com/request">Book a Cleaner</a>
 </div>
 </div>
 </section>
-<!-- Testimonials Section -->
-<section class="py-section-padding px-margin-mobile md:px-margin-desktop bg-surface-background fade-in">
-<div class="max-w-container-max mx-auto border-t border-border-subtle pt-20">
-<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-interactive-black mb-4 tracking-tight text-center">
-            Loved by homeowners
-        </h2>
-<p class="font-body-lg text-body-lg text-secondary-text mb-16 max-w-xl mx-auto text-center">
-            Real reviews from real Verliks customers.
-        </p>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
-<div class="p-8 rounded-xl bg-surface-subtle border border-border-subtle fade-in delay-1">
-<div class="flex gap-1 mb-4 text-tertiary-fixed-dim">
-<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">star</span>
+
+</main>
+
+<!-- ============================== Footer ============================= -->
+<footer class="bg-surface-subtle">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 md:py-section-padding flex flex-col md:flex-row justify-between items-start gap-12">
+
+<div class="flex flex-col gap-4">
+<img class="h-14 md:h-16 w-auto object-contain" src="logo-blue-cropped.png" alt="Verliks — Book trusted, verified Brazilian cleaning professionals" width="1457" height="735">
+<p class="font-body-md text-body-md text-secondary-text max-w-xs text-pretty">© 2026 Verliks. All rights reserved. Premium Brazilian cleaning services.</p>
 </div>
-<p class="font-body-md text-body-md text-interactive-black mb-6">"I've been using Verliks for 6 months and it's completely changed my routine."</p>
-<p class="font-label-md text-label-md text-interactive-black">Sarah M.</p>
-<p class="font-label-sm text-label-sm text-secondary-text mt-1">Miami, FL · Standard Cleaning</p>
+
+<div class="flex flex-col sm:flex-row gap-10 sm:gap-16">
+<nav class="flex flex-col gap-3" aria-label="Company">
+<a class="font-label-md text-label-md text-secondary hover:text-primary underline underline-offset-4 decoration-border-subtle hover:decoration-primary transition-colors duration-300" href="https://verliks.com/#how-it-works">How it works</a>
+<a class="font-label-md text-label-md text-secondary hover:text-primary underline underline-offset-4 decoration-border-subtle hover:decoration-primary transition-colors duration-300" href="https://verliks.com/request">Pricing</a>
+<a class="font-label-md text-label-md text-secondary hover:text-primary underline underline-offset-4 decoration-border-subtle hover:decoration-primary transition-colors duration-300" href="https://verliks.com/landing#about">About</a>
+<a class="font-label-md text-label-md text-secondary hover:text-primary underline underline-offset-4 decoration-border-subtle hover:decoration-primary transition-colors duration-300" href="https://verliks.com/auth/register?role=cleaner">Become a Cleaner</a>
+</nav>
+<nav class="flex flex-col gap-3" aria-label="Legal and support">
+<a class="font-label-md text-label-md text-secondary hover:text-primary underline underline-offset-4 decoration-border-subtle hover:decoration-primary transition-colors duration-300" href="https://verliks.com/privacy">Privacy</a>
+<a class="font-label-md text-label-md text-secondary hover:text-primary underline underline-offset-4 decoration-border-subtle hover:decoration-primary transition-colors duration-300" href="https://verliks.com/terms">Terms</a>
+<a class="font-label-md text-label-md text-secondary hover:text-primary underline underline-offset-4 decoration-border-subtle hover:decoration-primary transition-colors duration-300" href="mailto:support@verliks.com">Support</a>
+</nav>
 </div>
-<div class="p-8 rounded-xl bg-surface-subtle border border-border-subtle fade-in delay-2">
-<div class="flex gap-1 mb-4 text-tertiary-fixed-dim">
-<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">star</span>
-</div>
-<p class="font-body-md text-body-md text-interactive-black mb-6">"Booked a deep clean before hosting a family gathering. They exceeded every expectation."</p>
-<p class="font-label-md text-label-md text-interactive-black">Michael R.</p>
-<p class="font-label-sm text-label-sm text-secondary-text mt-1">Hartford, CT · Deep Cleaning</p>
-</div>
-<div class="p-8 rounded-xl bg-surface-subtle border border-border-subtle fade-in delay-3">
-<div class="flex gap-1 mb-4 text-tertiary-fixed-dim">
-<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">star</span>
-</div>
-<p class="font-body-md text-body-md text-interactive-black mb-6">"Used Verliks for a move-out clean. Got my full security deposit back."</p>
-<p class="font-label-md text-label-md text-interactive-black">Jennifer K.</p>
-<p class="font-label-sm text-label-sm text-secondary-text mt-1">Boston, MA · Move-Out Cleaning</p>
-</div>
-</div>
-</div>
-</section>
-<!-- CTA Section -->
-<section class="py-section-padding px-margin-mobile md:px-margin-desktop bg-surface-subtle fade-in">
-<div class="max-w-4xl mx-auto text-center fade-in">
-<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-interactive-black mb-8 tracking-tight">
-            Ready to book your cleaner?
-        </h2>
-<p class="font-body-lg text-body-lg text-secondary-text mb-10 max-w-xl mx-auto">
-            Join 2,400+ homeowners across Miami, Connecticut, New York and Massachusetts who trust Verliks for their weekly maintenance and deep cleaning needs.
-        </p>
-<button onclick="window.location.href='https://verliks.com/request'" class="bg-primary text-on-primary px-12 py-5 rounded-[4px] font-body-md text-body-md font-medium hover:opacity-90 transition-all duration-300 shadow-sm active:scale-95">Book a Cleaner</button>
-</div>
-</section>
-<!-- Footer Component -->
-<footer class="w-full px-margin-mobile md:px-margin-desktop py-12 flex flex-col md:flex-row justify-between items-center max-w-container-max mx-auto border-t border-border-subtle">
-<div class="flex flex-col items-center md:items-start mb-8 md:mb-0">
-<img class="h-16 md:h-20 w-auto object-contain mb-2" src="logo-blue-cropped.png" alt="Verliks — Book trusted, verified Brazilian cleaning professionals">
-<p class="font-label-sm text-label-sm text-secondary-text">© 2026 Verliks. All rights reserved.</p>
-</div>
-<div class="flex items-center gap-8">
-<a class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors duration-300" href="https://verliks.com/privacy">Privacy</a>
-<a class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors duration-300" href="https://verliks.com/terms">Terms</a>
-<a class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors duration-300" href="mailto:support@verliks.com">Support</a>
+
 </div>
 </footer>
+
 <script>
-    // Simple intersection observer for reveal effects
-    const observerOptions = {
-        threshold: 0.1
-    };
+(function () {
+    "use strict";
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
+    /* ---- Reveal on scroll: one observer, unobserve after firing ---- */
+    var targets = document.querySelectorAll("[data-reveal]");
+    if ("IntersectionObserver" in window) {
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add("is-visible");
+                io.unobserve(entry.target);
+            });
+        }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+        targets.forEach(function (el) { io.observe(el); });
+    } else {
+        targets.forEach(function (el) { el.classList.add("is-visible"); });
+    }
 
-    document.querySelectorAll('section, header > div').forEach(el => {
-        observer.observe(el);
+    /* ---- Nav hairline appears only once the page has scrolled ---- */
+    var nav = document.querySelector(".site-nav");
+    var ticking = false;
+    function syncNav() {
+        nav.classList.toggle("is-scrolled", window.scrollY > 8);
+        ticking = false;
+    }
+    window.addEventListener("scroll", function () {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(syncNav);
+    }, { passive: true });
+    syncNav();
+
+    /* ---- Mobile menu ---- */
+    var toggle = document.getElementById("nav-toggle");
+    var panel = document.getElementById("nav-panel");
+    var icon = toggle.querySelector(".material-symbols-outlined");
+
+    function setMenu(open) {
+        panel.dataset.open = open ? "true" : "false";
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+        toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+        icon.textContent = open ? "close" : "menu";
+    }
+
+    toggle.addEventListener("click", function () {
+        setMenu(panel.dataset.open !== "true");
     });
 
-    // Micro-interaction for buttons
-    document.querySelectorAll('button').forEach(button => {
-        button.addEventListener('mousedown', () => {
-            button.style.transform = 'scale(0.98)';
-        });
-        button.addEventListener('mouseup', () => {
-            button.style.transform = 'scale(1)';
-        });
-        button.addEventListener('mouseleave', () => {
-            button.style.transform = 'scale(1)';
-        });
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && panel.dataset.open === "true") {
+            setMenu(false);
+            toggle.focus();
+        }
     });
+
+    panel.addEventListener("click", function (e) {
+        if (e.target.closest("a")) setMenu(false);
+    });
+
+    /* Reset the menu when the viewport grows past the breakpoint */
+    var wide = window.matchMedia("(min-width: 1024px)");
+    (wide.addEventListener ? wide.addEventListener.bind(wide, "change") : wide.addListener.bind(wide))(function (e) {
+        if (e.matches) setMenu(false);
+    });
+}());
 </script>
-
 
 </body></html>
