@@ -19,20 +19,30 @@
 <link href="styles.css?v=4" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" sizes="512x512" href="icon.png">
+<link rel="icon" type="image/png" sizes="64x64" href="icon-64.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 <script>document.documentElement.classList.add('js');</script>
 <style>
+        /* Same two families the public site uses: Google Sans Flex for display,
+           Plus Jakarta Sans for body. The display face is not on Google Fonts,
+           so it is served from this repo. */
+        @font-face { font-family: 'Google Sans Flex'; src: url('fonts/GoogleSansFlex_24pt-Regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
+        @font-face { font-family: 'Google Sans Flex'; src: url('fonts/GoogleSansFlex_24pt-Medium.ttf') format('truetype'); font-weight: 500; font-display: swap; }
+        @font-face { font-family: 'Google Sans Flex'; src: url('fonts/GoogleSansFlex_24pt-Bold.ttf') format('truetype'); font-weight: 700; font-display: swap; }
+
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: #F7F8FA;
-            color: #1E3A5F;
+            color: #185FC6;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
 
         /* Editorial headline rendering: tight tracking needs optical alignment */
-        h1, h2, h3 { font-family: 'Hanken Grotesk', 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Google Sans Flex', 'Plus Jakarta Sans', sans-serif; letter-spacing: -.04em; }
 
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -57,20 +67,21 @@
         }
 
         /* Keyboard focus: 1px emerald-equivalent (brand navy) ring, no heavy glow */
-        :focus-visible { outline: 2px solid #1E3A5F; outline-offset: 3px; border-radius: 2px; }
+        :focus-visible { outline: 2px solid #185FC6; outline-offset: 3px; border-radius: 6px; }
         :focus:not(:focus-visible) { outline: none; }
 
         /* Skip link */
         .skip-link {
             position: absolute; left: 20px; top: -100px; z-index: 100;
-            background: #1E3A5F; color: #fff; padding: 12px 20px; border-radius: 4px;
+            background: #185FC6; color: #fff; padding: 12px 20px; border-radius: 10px;
             font-size: 14px; font-weight: 600; transition: top .2s ease;
         }
         .skip-link:focus { top: 20px; }
 
         /* Sticky nav gains a hairline only once the page has moved */
-        .site-nav { transition: border-color .3s ease, background-color .3s ease; border-bottom: 1px solid transparent; }
-        .site-nav.is-scrolled { border-bottom-color: #A7C9C7; }
+        /* The bar earns depth once the page has moved, rather than a hairline. */
+        .site-nav { transition: box-shadow .3s cubic-bezier(.2,.7,.2,1), background-color .3s ease; }
+        .site-nav.is-scrolled { box-shadow: 0 1px 0 rgba(14,52,104,.05), 0 6px 20px -8px rgba(14,52,104,.14); }
 
         /* Nav link: understated underline that grows from the left */
         .nav-link { position: relative; }
@@ -91,6 +102,16 @@
         ::-webkit-scrollbar-thumb { background: #d1d1d6; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #8e8e93; }
 
+
+        /* Buttons: lift on hover, press on click — the same tactile pairing the
+           public site uses, with the press beating the lift so a click always
+           reads as contact. */
+        .btn-motion { transition: background-color .2s cubic-bezier(.2,.7,.2,1), box-shadow .2s cubic-bezier(.2,.7,.2,1), transform .2s cubic-bezier(.2,.7,.2,1); }
+        .btn-motion:hover { transform: translateY(-2px); }
+        .btn-motion:active { transform: translateY(0) scale(.985); transition-duration: .08s; }
+        @media (prefers-reduced-motion: reduce) {
+            .btn-motion:hover, .btn-motion:active { transform: none; }
+        }
         .text-balance { text-wrap: balance; }
         .text-pretty { text-wrap: pretty; }
     </style>
@@ -145,9 +166,8 @@
 <nav class="site-nav fixed top-0 left-0 right-0 w-full z-50 bg-surface-background/90 backdrop-blur-md" aria-label="Primary">
 <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative h-16 md:h-20 flex items-center justify-between gap-6">
 
-<a class="flex items-center gap-2 font-headline-md text-headline-md text-primary shrink-0" href="https://verliks.com">
-<img class="h-8 w-auto object-contain shrink-0" src="vlogo-cropped.png" alt="" aria-hidden="true" width="694" height="803">
-<span>Verliks</span>
+<a class="flex items-center shrink-0" href="https://verliks.com" aria-label="Verliks home">
+<img class="h-7 md:h-8 w-auto object-contain shrink-0" src="verliks-logo.png" alt="Verliks" width="600" height="129">
 </a>
 
 <div class="hidden lg:flex items-center gap-6 xl:gap-8 absolute left-1/2 -translate-x-1/2 w-max whitespace-nowrap">
@@ -159,8 +179,8 @@
 </div>
 
 <div class="flex items-center gap-2">
-<a class="hidden sm:inline-flex items-center justify-center bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded-[4px] hover:bg-primary/90 transition-colors duration-300 ease-editorial" href="https://verliks.com/request">Book a Cleaner</a>
-<button type="button" id="nav-toggle" class="lg:hidden inline-flex items-center justify-center h-11 w-11 -mr-2 rounded-[4px] text-primary hover:bg-surface-subtle transition-colors" aria-expanded="false" aria-controls="nav-panel" aria-label="Open menu">
+<a class="btn-motion hidden sm:inline-flex items-center justify-center bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors duration-300 ease-editorial" href="https://verliks.com/request">Book a Cleaner</a>
+<button type="button" id="nav-toggle" class="lg:hidden inline-flex items-center justify-center h-11 w-11 -mr-2 rounded-lg text-primary hover:bg-surface-subtle transition-colors" aria-expanded="false" aria-controls="nav-panel" aria-label="Open menu">
 <span class="material-symbols-outlined text-2xl" aria-hidden="true">menu</span>
 </button>
 </div>
@@ -168,14 +188,14 @@
 </div>
 
 <!-- Mobile / tablet menu -->
-<div class="nav-panel lg:hidden border-t border-border-subtle bg-surface-container-lowest" id="nav-panel" data-open="false">
+<div class="nav-panel lg:hidden  bg-surface-container-lowest" id="nav-panel" data-open="false">
 <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-6 flex flex-col gap-5">
 <a class="font-body-md text-body-md text-secondary-text hover:text-primary transition-colors" href="https://verliks.com/#how-it-works">How it works</a>
 <a class="font-body-md text-body-md text-secondary-text hover:text-primary transition-colors" href="https://verliks.com/request">Pricing</a>
 <a class="font-body-md text-body-md text-secondary-text hover:text-primary transition-colors" href="https://verliks.com/landing#about">About</a>
 <a class="font-body-md text-body-md text-secondary-text hover:text-primary transition-colors" href="mailto:support@verliks.com">Contact</a>
 <a class="font-body-md text-body-md text-secondary-text hover:text-primary transition-colors" href="https://verliks.com/auth/register?role=cleaner">Become a Cleaner</a>
-<a class="sm:hidden inline-flex items-center justify-center bg-primary text-on-primary font-label-md text-label-md px-6 py-4 rounded-[4px] mt-1" href="https://verliks.com/request">Book a Cleaner</a>
+<a class="btn-motion sm:hidden inline-flex items-center justify-center bg-primary text-on-primary font-label-md text-label-md px-6 py-4 rounded-lg mt-1" href="https://verliks.com/request">Book a Cleaner</a>
 </div>
 </div>
 </nav>
@@ -190,13 +210,13 @@
         </h1>
 <p class="font-body-lg text-body-lg text-secondary-text max-w-lg text-pretty">Professional, background-checked cleaning experts near you — trusted by 2,400+ homeowners with a 4.9★ average rating. Simple booking, exceptional care.</p>
 <div class="flex flex-col sm:flex-row gap-4 mt-4 w-full sm:w-auto">
-<a class="inline-flex items-center justify-center bg-primary text-on-primary font-label-md text-label-md px-8 py-4 rounded-[4px] hover:bg-primary/90 transition-colors duration-300 ease-editorial w-full sm:w-auto" href="https://verliks.com/request">Book a Cleaner</a>
-<a class="inline-flex items-center justify-center border border-border-subtle text-interactive-black font-label-md text-label-md px-8 py-4 rounded-[4px] hover:bg-surface-subtle transition-colors duration-300 ease-editorial w-full sm:w-auto" href="https://verliks.com/auth/register?role=cleaner">Become a Cleaner</a>
+<a class="btn-motion inline-flex items-center justify-center bg-primary text-on-primary font-label-md text-label-md px-8 py-4 rounded-lg hover:bg-primary/90 transition-colors duration-300 ease-editorial w-full sm:w-auto" href="https://verliks.com/request">Book a Cleaner</a>
+<a class="btn-motion inline-flex items-center justify-center shadow-card text-interactive-black font-label-md text-label-md px-8 py-4 rounded-lg hover:bg-surface-subtle transition-colors duration-300 ease-editorial w-full sm:w-auto" href="https://verliks.com/auth/register?role=cleaner">Become a Cleaner</a>
 </div>
 </div>
 
 <!-- Elevated surface: pure white frame, hairline outline, one diffused shadow -->
-<div class="relative w-full aspect-[4/3] rounded-xl border border-border-subtle bg-surface-container-lowest shadow-soft p-2 sm:p-3" data-reveal style="--reveal-delay:120ms">
+<div class="relative w-full aspect-[4/3] rounded-xl shadow-card bg-surface-container-lowest shadow-soft p-2 sm:p-3" data-reveal style="--reveal-delay:120ms">
 <div class="h-full w-full overflow-hidden rounded-lg bg-surface-subtle">
 <img class="w-full h-full object-cover object-center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUOEyI9rCjm90Ya5irE-E3Hzmz6Ih-Bu8mqf3s8P6zz23k90ejDFLz9vcE0HOgpUB9Z5gVvVBye59mZilyMW6ZPDRsyVOmDF5It85WMElTvReSrs7B8VQfTF3ClviFNwQTtwnAdnAhu_gA3hUUv9WrGr3-fNFfvDl6P8AW4DI54EpDzX6BDZhXZCJBIo7xpV7464suva6FzLhE7SuvvMW_LB1KfREAV3CW_COk8LCKEBMuj2spJqskoShmbs4bwLeLMozGXbKqfM8" alt="Professional Verliks cleaner tidying a sun-lit, minimalist luxury apartment interior" loading="eager" fetchpriority="high" width="800" height="600">
 </div>
@@ -204,7 +224,7 @@
 </section>
 
 <!-- ============================ Trust bar ============================ -->
-<section class="border-y border-border-subtle bg-surface-container-lowest" aria-label="Why homeowners trust Verliks">
+<section class=" bg-surface-container-lowest" aria-label="Why homeowners trust Verliks">
 <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8">
 <ul class="flex flex-col md:flex-row justify-center md:justify-around items-center gap-6">
 <li class="flex items-center gap-2 font-label-md text-label-md text-secondary-text">
@@ -229,26 +249,20 @@
 <h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-interactive-black text-balance">Simplicity by Design</h2>
 </div>
 <div class="relative">
-<!-- Connective line: one hairline, drawn behind the cards -->
-<div class="hidden md:block absolute top-12 left-0 w-full h-px bg-border-subtle z-0" aria-hidden="true"></div>
 <ol class="grid grid-cols-1 md:grid-cols-4 gap-8">
-<li class="relative z-10 bg-surface-background p-8 border border-border-subtle rounded-xl flex flex-col items-start hover:shadow-soft transition-shadow duration-300 ease-editorial" data-reveal>
-<span class="font-headline-md text-headline-md text-primary tabular-nums mb-4">01</span>
+<li class="relative z-10 bg-surface-background p-8 rounded-xl shadow-card flex flex-col items-start hover:shadow-card-hover hover:-translate-y-0.5 transition duration-300 ease-editorial" data-reveal>
 <h3 class="font-body-lg text-body-lg font-semibold text-interactive-black mb-2">Request</h3>
 <p class="font-body-md text-body-md text-secondary-text">Tell us your needs.</p>
 </li>
-<li class="relative z-10 bg-surface-background p-8 border border-border-subtle rounded-xl flex flex-col items-start hover:shadow-soft transition-shadow duration-300 ease-editorial md:mt-8" data-reveal style="--reveal-delay:80ms">
-<span class="font-headline-md text-headline-md text-primary tabular-nums mb-4">02</span>
+<li class="relative z-10 bg-surface-background p-8 rounded-xl shadow-card flex flex-col items-start hover:shadow-card-hover hover:-translate-y-0.5 transition duration-300 ease-editorial md:mt-8" data-reveal style="--reveal-delay:80ms">
 <h3 class="font-body-lg text-body-lg font-semibold text-interactive-black mb-2">Match</h3>
 <p class="font-body-md text-body-md text-secondary-text">Connect with local pros, usually within the hour.</p>
 </li>
-<li class="relative z-10 bg-surface-background p-8 border border-border-subtle rounded-xl flex flex-col items-start hover:shadow-soft transition-shadow duration-300 ease-editorial" data-reveal style="--reveal-delay:160ms">
-<span class="font-headline-md text-headline-md text-primary tabular-nums mb-4">03</span>
+<li class="relative z-10 bg-surface-background p-8 rounded-xl shadow-card flex flex-col items-start hover:shadow-card-hover hover:-translate-y-0.5 transition duration-300 ease-editorial" data-reveal style="--reveal-delay:160ms">
 <h3 class="font-body-lg text-body-lg font-semibold text-interactive-black mb-2">Choose</h3>
 <p class="font-body-md text-body-md text-secondary-text">Review profiles and chat.</p>
 </li>
-<li class="relative z-10 bg-surface-background p-8 border border-border-subtle rounded-xl flex flex-col items-start hover:shadow-soft transition-shadow duration-300 ease-editorial md:mt-8" data-reveal style="--reveal-delay:240ms">
-<span class="font-headline-md text-headline-md text-primary tabular-nums mb-4">04</span>
+<li class="relative z-10 bg-surface-background p-8 rounded-xl shadow-card flex flex-col items-start hover:shadow-card-hover hover:-translate-y-0.5 transition duration-300 ease-editorial md:mt-8" data-reveal style="--reveal-delay:240ms">
 <h3 class="font-body-lg text-body-lg font-semibold text-interactive-black mb-2">Book</h3>
 <p class="font-body-md text-body-md text-secondary-text">Pay securely and relax.</p>
 </li>
@@ -257,27 +271,27 @@
 </section>
 
 <!-- =========================== Why Verliks =========================== -->
-<section id="why-verliks" class="bg-surface-container-lowest border-y border-border-subtle py-16 md:py-section-padding">
+<section id="why-verliks" class="bg-surface-container-lowest  py-16 md:py-section-padding">
 <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
 <div class="mb-12 md:mb-16 text-center" data-reveal>
 <h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-interactive-black text-balance">Built for Trust, Not Chaos</h2>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-<div class="p-8 border border-border-subtle rounded-xl bg-surface-background hover:shadow-soft transition-shadow duration-300 ease-editorial" data-reveal>
+<div class="p-8 rounded-xl shadow-card bg-surface-background hover:shadow-card-hover hover:-translate-y-0.5 transition duration-300 ease-editorial" data-reveal>
 <div class="w-10 h-10 rounded-full bg-surface-subtle flex items-center justify-center mb-6">
 <span class="material-symbols-outlined text-primary text-xl" data-icon="bolt" aria-hidden="true">bolt</span>
 </div>
 <h3 class="font-body-lg text-body-lg font-semibold text-interactive-black mb-3">Fast matching</h3>
 <p class="font-body-md text-body-md text-secondary-text text-pretty">Get matched with a vetted cleaner near you, usually within the hour.</p>
 </div>
-<div class="p-8 border border-border-subtle rounded-xl bg-surface-background hover:shadow-soft transition-shadow duration-300 ease-editorial" data-reveal style="--reveal-delay:80ms">
+<div class="p-8 rounded-xl shadow-card bg-surface-background hover:shadow-card-hover hover:-translate-y-0.5 transition duration-300 ease-editorial" data-reveal style="--reveal-delay:80ms">
 <div class="w-10 h-10 rounded-full bg-surface-subtle flex items-center justify-center mb-6">
 <span class="material-symbols-outlined text-primary text-xl" data-icon="verified_user" aria-hidden="true">verified_user</span>
 </div>
 <h3 class="font-body-lg text-body-lg font-semibold text-interactive-black mb-3">Verified cleaners</h3>
 <p class="font-body-md text-body-md text-secondary-text text-pretty">500+ background-checked professionals, trained and equipped with quality products.</p>
 </div>
-<div class="p-8 border border-border-subtle rounded-xl bg-surface-background hover:shadow-soft transition-shadow duration-300 ease-editorial" data-reveal style="--reveal-delay:160ms">
+<div class="p-8 rounded-xl shadow-card bg-surface-background hover:shadow-card-hover hover:-translate-y-0.5 transition duration-300 ease-editorial" data-reveal style="--reveal-delay:160ms">
 <div class="w-10 h-10 rounded-full bg-surface-subtle flex items-center justify-center mb-6">
 <span class="material-symbols-outlined text-primary text-xl" data-icon="payments" aria-hidden="true">payments</span>
 </div>
@@ -296,7 +310,7 @@
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-<figure class="p-8 rounded-xl bg-surface-container-lowest border border-border-subtle hover:shadow-soft transition-shadow duration-300 ease-editorial flex flex-col" data-reveal>
+<figure class="p-8 rounded-xl bg-surface-container-lowest shadow-card hover:shadow-card-hover hover:-translate-y-0.5 transition duration-300 ease-editorial flex flex-col" data-reveal>
 <div class="flex gap-1 mb-6 text-tertiary-fixed-dim" role="img" aria-label="Rated 5 out of 5">
 <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
 <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
@@ -305,13 +319,13 @@
 <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
 </div>
 <blockquote class="font-body-md text-body-md text-interactive-black mb-6 flex-1 text-pretty">“I've been using Verliks for 6 months and it's completely changed my routine.”</blockquote>
-<figcaption class="pt-6 border-t border-border-subtle">
+<figcaption class="pt-6 ">
 <span class="block font-label-md text-label-md text-interactive-black">Sarah M.</span>
 <span class="block font-label-sm text-label-sm text-secondary-text mt-1.5 uppercase">Miami, FL · Standard Cleaning</span>
 </figcaption>
 </figure>
 
-<figure class="p-8 rounded-xl bg-surface-container-lowest border border-border-subtle hover:shadow-soft transition-shadow duration-300 ease-editorial flex flex-col" data-reveal style="--reveal-delay:80ms">
+<figure class="p-8 rounded-xl bg-surface-container-lowest shadow-card hover:shadow-card-hover hover:-translate-y-0.5 transition duration-300 ease-editorial flex flex-col" data-reveal style="--reveal-delay:80ms">
 <div class="flex gap-1 mb-6 text-tertiary-fixed-dim" role="img" aria-label="Rated 5 out of 5">
 <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
 <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
@@ -320,13 +334,13 @@
 <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
 </div>
 <blockquote class="font-body-md text-body-md text-interactive-black mb-6 flex-1 text-pretty">“Booked a deep clean before hosting a family gathering. They exceeded every expectation.”</blockquote>
-<figcaption class="pt-6 border-t border-border-subtle">
+<figcaption class="pt-6 ">
 <span class="block font-label-md text-label-md text-interactive-black">Michael R.</span>
 <span class="block font-label-sm text-label-sm text-secondary-text mt-1.5 uppercase">Hartford, CT · Deep Cleaning</span>
 </figcaption>
 </figure>
 
-<figure class="p-8 rounded-xl bg-surface-container-lowest border border-border-subtle hover:shadow-soft transition-shadow duration-300 ease-editorial flex flex-col" data-reveal style="--reveal-delay:160ms">
+<figure class="p-8 rounded-xl bg-surface-container-lowest shadow-card hover:shadow-card-hover hover:-translate-y-0.5 transition duration-300 ease-editorial flex flex-col" data-reveal style="--reveal-delay:160ms">
 <div class="flex gap-1 mb-6 text-tertiary-fixed-dim" role="img" aria-label="Rated 5 out of 5">
 <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
 <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
@@ -335,7 +349,7 @@
 <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1;" aria-hidden="true">star</span>
 </div>
 <blockquote class="font-body-md text-body-md text-interactive-black mb-6 flex-1 text-pretty">“Used Verliks for a move-out clean. Got my full security deposit back.”</blockquote>
-<figcaption class="pt-6 border-t border-border-subtle">
+<figcaption class="pt-6 ">
 <span class="block font-label-md text-label-md text-interactive-black">Jennifer K.</span>
 <span class="block font-label-sm text-label-sm text-secondary-text mt-1.5 uppercase">Boston, MA · Move-Out Cleaning</span>
 </figcaption>
@@ -345,12 +359,12 @@
 </section>
 
 <!-- =============================== CTA =============================== -->
-<section class="bg-surface-container-lowest border-y border-border-subtle py-16 md:py-section-padding">
+<section class="bg-surface-container-lowest  py-16 md:py-section-padding">
 <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
 <div class="max-w-2xl mx-auto text-center" data-reveal>
 <h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-interactive-black mb-6 text-balance">Ready to book your cleaner?</h2>
 <p class="font-body-lg text-body-lg text-secondary-text mb-10 text-pretty">Join 2,400+ homeowners across Miami, Connecticut, New York and Massachusetts who trust Verliks for their weekly maintenance and deep cleaning needs.</p>
-<a class="inline-flex items-center justify-center bg-primary text-on-primary font-label-md text-label-md px-10 py-4 rounded-[4px] hover:bg-primary/90 transition-colors duration-300 ease-editorial" href="https://verliks.com/request">Book a Cleaner</a>
+<a class="btn-motion inline-flex items-center justify-center bg-primary text-on-primary font-label-md text-label-md px-10 py-4 rounded-lg hover:bg-primary/90 transition-colors duration-300 ease-editorial" href="https://verliks.com/request">Book a Cleaner</a>
 </div>
 </div>
 </section>
@@ -362,21 +376,21 @@
 <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 md:py-section-padding flex flex-col md:flex-row justify-between items-start gap-12">
 
 <div class="flex flex-col gap-4">
-<img class="h-14 md:h-16 w-auto object-contain" src="logo-blue-cropped.png" alt="Verliks — Book trusted, verified Brazilian cleaning professionals" width="1457" height="735">
+<img class="h-9 md:h-11 w-auto object-contain" src="verliks-logo.png" alt="Verliks" width="600" height="129">
 <p class="font-body-md text-body-md text-secondary-text max-w-xs text-pretty">© 2026 Verliks. All rights reserved. Premium Brazilian cleaning services.</p>
 </div>
 
 <div class="flex flex-col sm:flex-row gap-10 sm:gap-16">
 <nav class="flex flex-col gap-3" aria-label="Company">
-<a class="font-label-md text-label-md text-secondary hover:text-primary underline underline-offset-4 decoration-border-subtle hover:decoration-primary transition-colors duration-300" href="https://verliks.com/#how-it-works">How it works</a>
-<a class="font-label-md text-label-md text-secondary hover:text-primary underline underline-offset-4 decoration-border-subtle hover:decoration-primary transition-colors duration-300" href="https://verliks.com/request">Pricing</a>
-<a class="font-label-md text-label-md text-secondary hover:text-primary underline underline-offset-4 decoration-border-subtle hover:decoration-primary transition-colors duration-300" href="https://verliks.com/landing#about">About</a>
-<a class="font-label-md text-label-md text-secondary hover:text-primary underline underline-offset-4 decoration-border-subtle hover:decoration-primary transition-colors duration-300" href="https://verliks.com/auth/register?role=cleaner">Become a Cleaner</a>
+<a class="font-label-md text-label-md text-secondary hover:text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary transition-colors duration-300" href="https://verliks.com/#how-it-works">How it works</a>
+<a class="font-label-md text-label-md text-secondary hover:text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary transition-colors duration-300" href="https://verliks.com/request">Pricing</a>
+<a class="font-label-md text-label-md text-secondary hover:text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary transition-colors duration-300" href="https://verliks.com/landing#about">About</a>
+<a class="font-label-md text-label-md text-secondary hover:text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary transition-colors duration-300" href="https://verliks.com/auth/register?role=cleaner">Become a Cleaner</a>
 </nav>
 <nav class="flex flex-col gap-3" aria-label="Legal and support">
-<a class="font-label-md text-label-md text-secondary hover:text-primary underline underline-offset-4 decoration-border-subtle hover:decoration-primary transition-colors duration-300" href="https://verliks.com/privacy">Privacy</a>
-<a class="font-label-md text-label-md text-secondary hover:text-primary underline underline-offset-4 decoration-border-subtle hover:decoration-primary transition-colors duration-300" href="https://verliks.com/terms">Terms</a>
-<a class="font-label-md text-label-md text-secondary hover:text-primary underline underline-offset-4 decoration-border-subtle hover:decoration-primary transition-colors duration-300" href="mailto:support@verliks.com">Support</a>
+<a class="font-label-md text-label-md text-secondary hover:text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary transition-colors duration-300" href="https://verliks.com/privacy">Privacy</a>
+<a class="font-label-md text-label-md text-secondary hover:text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary transition-colors duration-300" href="https://verliks.com/terms">Terms</a>
+<a class="font-label-md text-label-md text-secondary hover:text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary transition-colors duration-300" href="mailto:support@verliks.com">Support</a>
 </nav>
 </div>
 
